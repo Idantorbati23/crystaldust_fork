@@ -954,14 +954,7 @@ static const struct MatchCallText sMatchCallGenericTexts[] =
 {
         { .text = Matchcall_Joey_Generic,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
         { .text = Matchcall_Wade_Generic5,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Wade_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Wade_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Wade_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Wade_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Liz_Generic16,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Liz_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Liz_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Liz_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
 		{ .text = Matchcall_Liz_Generic12,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Liz_Generic11,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Liz_Generic10,    .stringVarFuncIds = STRS_NORMAL_MSG},
@@ -973,36 +966,12 @@ static const struct MatchCallText sMatchCallGenericTexts[] =
 		{ .text = Matchcall_Liz_Generic4,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Liz_Generic3,    .stringVarFuncIds = STRS_WILD_BATTLE},
 		{ .text = Matchcall_Liz_Generic2,    .stringVarFuncIds = STRS_NORMAL_MSG},
-		//{ .text = Matchcall_Liz_HangupOutgoing,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
 		{ .text = Matchcall_Ralph_Generic5,    .stringVarFuncIds = STRS_NORMAL_MSG},
-		//{ .text = Matchcall_Ralph_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Ralph_DefeatedMon,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Ralph_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Ralph_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Anthony_Generic5,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Anthony_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Anthony_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Anthony_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Anthony_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
-        //{ .text = Matchcall_Todd_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
-		//{ .text = Matchcall_Todd_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Todd_DefeatedMon,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Todd_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
 		{ .text = Matchcall_Todd_Generic1,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Gina_Generic5,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Gina_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Gina_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Gina_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Gina_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Arnie_Generic5,    .stringVarFuncIds = STRS_NORMAL_MSG},
-		//{ .text = Matchcall_Arnie_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Arnie_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Arnie_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Arnie_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
         { .text = Matchcall_Jack_Generic16,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Jack_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Jack_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Jack_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
 		{ .text = Matchcall_Jack_Generic12,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Jack_Generic11,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Jack_Generic10,    .stringVarFuncIds = STRS_NORMAL_MSG},
@@ -1014,26 +983,10 @@ static const struct MatchCallText sMatchCallGenericTexts[] =
 		{ .text = Matchcall_Jack_Generic4,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Jack_Generic3,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Jack_Generic2,    .stringVarFuncIds = STRS_NORMAL_MSG},
-		//{ .text = Matchcall_Jack_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Beverly_Generic5,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Beverly_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Beverly_DefeatedMon,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Beverly_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Beverly_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
         { .text = Matchcall_Alan_Generic5,    .stringVarFuncIds = STRS_NORMAL_MSG},
-		//{ .text = Matchcall_Alan_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Alan_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Alan_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Alan_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Dana_Generic5,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Dana_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Dana_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Dana_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Dana_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
         { .text = Matchcall_Chad_Generic15,    .stringVarFuncIds = STRS_NORMAL_MSG},
-		//{ .text = Matchcall_Chad_Bragging,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Chad_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Chad_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
 		{ .text = Matchcall_Chad_Generic11,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Chad_Generic10,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Chad_Generic9,    .stringVarFuncIds = STRS_NORMAL_MSG},
@@ -1044,28 +997,11 @@ static const struct MatchCallText sMatchCallGenericTexts[] =
 		{ .text = Matchcall_Chad_Generic4,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Chad_Generic3,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Chad_Generic2,    .stringVarFuncIds = STRS_NORMAL_MSG},
-		//{ .text = Matchcall_Chad_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Derek_Generic5,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Derek_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Derek_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Derek_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Derek_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
-        //{ .text = Matchcall_Huey_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
         { .text = Matchcall_Tully_Generic5,    .stringVarFuncIds = STRS_NORMAL_MSG},
-		//{ .text = Matchcall_Tully_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Tully_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Tully_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Tully_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
         { .text = Matchcall_Tiffany_Generic5,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Tiffany_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Tiffany_DefeatedMon,    .stringVarFuncIds = {STR_TRAINER_NAME, STR_SPECIES_IN_ROUTE, STR_SPECIES_IN_PARTY}},
-		//{ .text = Matchcall_Tiffany_LostMon,    .stringVarFuncIds = {STR_TRAINER_NAME, STR_SPECIES_IN_ROUTE, STR_SPECIES_IN_PARTY}},
 		{ .text = Matchcall_Tiffany_Generic1,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Tiffany_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Brent_Generic15,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Brent_Bragging,    .stringVarFuncIds = STRS_NORMAL_MSG},
-		//{ .text = Matchcall_Brent_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Brent_LostMon,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Brent_Generic11,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Brent_Generic10,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Brent_Generic9,    .stringVarFuncIds = STRS_NORMAL_MSG},
@@ -1076,32 +1012,11 @@ static const struct MatchCallText sMatchCallGenericTexts[] =
 		{ .text = Matchcall_Brent_Generic4,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Brent_Generic3,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Brent_Generic2,    .stringVarFuncIds = STRS_NORMAL_MSG},
-		//{ .text = Matchcall_Brent_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
         { .text = Matchcall_Wilton_Generic2,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Wilton_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Wilton_DefeatedMon,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Wilton_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Wilton_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Vance_Generic5,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Vance_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Vance_DefeatedMon,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Vance_LostMon,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Vance_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Parry_Generic5,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Parry_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Parry_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Parry_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Parry_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Erin_Generic5,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Erin_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Erin_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Erin_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Erin_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Jose_Generic5,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Jose_Bragging,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
-		//{ .text = Matchcall_Jose_DefeatedMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Jose_LostMon,    .stringVarFuncIds = STRS_WILD_BATTLE},
-		//{ .text = Matchcall_Jose_HangupOutgoing,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Reena_Generic5,    .stringVarFuncIds = STRS_NORMAL_MSG},
 		{ .text = Matchcall_Gaven_Generic5,    .stringVarFuncIds = STRS_BATTLE_POSITIVE},
         { .text = Matchcall_Beth_Generic5,    .stringVarFuncIds = STRS_NORMAL_MSG},
@@ -1251,7 +1166,7 @@ static const struct ForcedPhoneCall sForcedStoryPhoneCalls[] = {
     },{
         .flag = FLAG_FORCED_CALL_MOM_ITEM,
         .phoneContactId = PHONE_CONTACT_MOM,
-        .callCondition = AlwaysTrue, // MomTriesToBuySomething() in mom_item_calls.c makes sure the call conditions are right
+        .callCondition = AlwaysTrue,
         .script = PhoneScript_Mom_BoughtItem
     },
 };
@@ -1285,10 +1200,6 @@ static const struct ScanlineEffectParams sScanlineParams =
     (void *)REG_ADDR_BG0VOFS, SCANLINE_EFFECT_DMACNT_16BIT, 1
 };
 
-extern const u8 gPokedexRatingText_AreYouCurious[];
-extern const u8 gPokedexRatingText_SoYouveSeenAndCaught[];
-extern const u8 gPokedexRatingText_OnANationwideBasis[];
-
 void InitMatchCallCounters(void)
 {
     RtcCalcLocalTime();
@@ -1320,7 +1231,6 @@ static bool32 CheckMatchCallChance(void)
         return TRUE;
     else
         return FALSE;
-	return TRUE;
 }
 
 bool32 MapAllowsMatchCall(void)
@@ -1761,7 +1671,6 @@ bool32 CleanupAfterMatchCallHangup(void)
         }
         else
         {
-            // this allows waitstate to continue
             EnableBothScriptContexts();
         }
         sMatchCallState.triggeredFromScript = 0;
@@ -1828,9 +1737,6 @@ static u32 GetNumRematchTrainersFought(void)
     return count;
 }
 
-// Look through the rematch table for trainers that have been defeated once before.
-// Return the index into the rematch table of the nth defeated trainer,
-// or REMATCH_TABLE_ENTRIES if fewer than n rematch trainers have been defeated.
 static u32 GetNthRematchTrainerFought(int n)
 {
     u32 i, count;
@@ -1851,23 +1757,21 @@ static u32 GetNthRematchTrainerFought(int n)
 
 u32 getRematchIdFromTrainerId(int trainerId)
 {
-	  u32 i;
+    u32 i;
 
-	    for (i = 0; i < REMATCH_TABLE_ENTRIES; i++)
-	    {
-	        if (gRematchTable[i].trainerIds[0] == trainerId) return i;
-	    }
-	return -1;
+    for (i = 0; i < REMATCH_TABLE_ENTRIES; i++)
+    {
+        if (gRematchTable[i].trainerIds[0] == trainerId) return i;
+    }
+    return -1;
 }
 
 void SelectMatchCallMessage_Hangup(int trainerId, u8 *str, bool8 isCallingPlayer, const struct PhoneContact *phoneContact)
 {
 	 u32 matchCallId;
-	 u32 rematchId;
 	 const struct MatchCallText *matchCallText;
 
 	 matchCallId = GetTrainerMatchCallId(trainerId);
-
 	 matchCallText = &gMatchCallTrainers[matchCallId].hangupText;
 
 	 BuildMatchCallString(matchCallId, matchCallText, str);
@@ -1876,11 +1780,9 @@ void SelectMatchCallMessage_Hangup(int trainerId, u8 *str, bool8 isCallingPlayer
 void SelectMatchCallMessage_HangupOutgoing(int trainerId, u8 *str, bool8 isCallingPlayer, const struct PhoneContact *phoneContact)
 {
 	 u32 matchCallId;
-	 u32 rematchId;
 	 const struct MatchCallText *matchCallText;
 
 	 matchCallId = GetTrainerMatchCallId(trainerId);
-
 	 matchCallText = &gMatchCallTrainers[matchCallId].hangupOutgoingText;
 
 	 BuildMatchCallString(matchCallId, matchCallText, str);
@@ -1890,22 +1792,11 @@ void SelectMatchCallMessage_Rematch(int trainerId, u8 *str, bool8 isCallingPlaye
 {
 	u32 matchCallId;
 	u32 rematchId;
-    //s32 i;
     u32 tableId;
 	const struct MatchCallText *matchCallText;
 
 	tableId = matchCallId = GetTrainerMatchCallId(trainerId);
     rematchId = getRematchIdFromTrainerId(trainerId);
-
-    /*for (i = 1; i < REMATCHES_COUNT; i++)
-    {
-        u16 trainerId2 = gRematchTable[tableId].trainerIds[i];
-
-        if (trainerId2 == 0)
-            break;
-        if (!HasTrainerBeenFought(trainerId2))
-            break;
-    }*/
 
     SetRematchTrainerFlag(tableId);
     UpdateRematchIfDefeated(rematchId);
@@ -1918,11 +1809,9 @@ void SelectMatchCallMessage_Rematch(int trainerId, u8 *str, bool8 isCallingPlaye
 void SelectMatchCallMessage_RemindRematch(int trainerId, u8 *str, bool8 isCallingPlayer, const struct PhoneContact *phoneContact)
 {
 	 u32 matchCallId;
-	 u32 rematchId;
 	 const struct MatchCallText *matchCallText;
 
 	 matchCallId = GetTrainerMatchCallId(trainerId);
-
 	 matchCallText = &gMatchCallTrainers[matchCallId].remindRematchText;
 
 	 BuildMatchCallString(matchCallId, matchCallText, str);
@@ -1931,11 +1820,9 @@ void SelectMatchCallMessage_RemindRematch(int trainerId, u8 *str, bool8 isCallin
 void SelectMatchCallMessage_Bragging(int trainerId, u8 *str, bool8 isCallingPlayer, const struct PhoneContact *phoneContact)
 {
 	 u32 matchCallId;
-	 u32 rematchId;
 	 const struct MatchCallText *matchCallText;
 
 	 matchCallId = GetTrainerMatchCallId(trainerId);
-
 	 matchCallText = &gMatchCallTrainers[matchCallId].braggingText;
 
 	 BuildMatchCallString(matchCallId, matchCallText, str);
@@ -1944,7 +1831,6 @@ void SelectMatchCallMessage_Bragging(int trainerId, u8 *str, bool8 isCallingPlay
 void SelectMatchCallMessage_FoundAMon(int trainerId, u8 *str, bool8 isCallingPlayer, const struct PhoneContact *phoneContact)
 {
 	 u32 matchCallId;
-	 u32 rematchId;
 	 const struct MatchCallText *matchCallText;
 
 	 matchCallId = GetTrainerMatchCallId(trainerId);
@@ -1960,12 +1846,12 @@ void SelectMatchCallMessage_FoundAMon(int trainerId, u8 *str, bool8 isCallingPla
 void SelectMatchCallMessage_Opening(int trainerId, u8 *str, bool8 isCallingPlayer, const struct PhoneContact *phoneContact)
 {
 	 u32 matchCallId;
-	 u32 rematchId;
 	 const struct MatchCallText *matchCallText;
+	 u8 timeOfDay;
 
 	 matchCallId = GetTrainerMatchCallId(trainerId);
-
-	 u8 timeOfDay = GetTimeOfDay(gLocalTime.hours);
+	 timeOfDay = GetTimeOfDay(gLocalTime.hours);
+	 
 	 if(isCallingPlayer)
 	 {
 		 switch(timeOfDay){
@@ -1980,8 +1866,7 @@ void SelectMatchCallMessage_Opening(int trainerId, u8 *str, bool8 isCallingPlaye
 			 case TIME_NIGHT:
 				 matchCallText = &gMatchCallTrainers[matchCallId].callTexts[2];
 				 break;
-		 }
-
+         }
 	 }
 	 else
 	 {
@@ -1997,7 +1882,7 @@ void SelectMatchCallMessage_Opening(int trainerId, u8 *str, bool8 isCallingPlaye
 			 case TIME_NIGHT:
 				 matchCallText = &gMatchCallTrainers[matchCallId].answerTexts[2];
 				 break;
-		 }
+         }
 	 }
 	 BuildMatchCallString(matchCallId, matchCallText, str);
 }
@@ -2023,51 +1908,12 @@ bool32 SelectMatchCallMessage(int trainerId, u8 *str, bool8 isCallingPlayer, con
     u32 rematchId;
     const struct MatchCallText *matchCallText;
     bool32 retVal = FALSE;
-    u16 randomNumber = Random() & 9;
 
     matchCallId = GetTrainerMatchCallId(trainerId);
     rematchId = getRematchIdFromTrainerId(trainerId);
     sBattleFrontierStreakInfo.facilityId = 0;
 
-    /*if (FlagGet(gMatchCallTrainers[matchCallId].rematchForcedFlag))
-    {
-    	matchCallText = &gMatchCallTrainers[matchCallId].remindRematchText;
-    }
-    else if (FlagGet(gMatchCallTrainers[matchCallId].giftFlag))
-    {
-    	matchCallText = &gMatchCallTrainers[matchCallId].remindGiftText;
-    }
-    else if (gMatchCallTrainers[matchCallId].outbreakData.species != SPECIES_NONE && gSaveBlock1Ptr->outbreakPokemonSpecies == gMatchCallTrainers[matchCallId].outbreakData.species)
-    {
-    	matchCallText = &gMatchCallTrainers[matchCallId].remindoutbreakText;
-    }
-    else if(gMatchCallTrainers[matchCallId].rematchForcedFlag &&
-    		((!isCallingPlayer && CanMatchCallIdAcceptRematch(matchCallId, gLocalTime.dayOfWeek, GetTimeOfDay(gLocalTime.hours))) ||
-            (isCallingPlayer  && ShouldTrainerRequestBattle(rematchId, matchCallId))))
-	{
-		matchCallText = &gMatchCallTrainers[matchCallId].rematchText;
-		retVal = TRUE;
-		FlagSet(gMatchCallTrainers[matchCallId].rematchForcedFlag);
-		gSaveBlock1Ptr->trainerRematches[rematchId] = 1; // commented out
-		UpdateRematchIfDefeated(rematchId);
-	}
-    else if (gMatchCallTrainers[matchCallId].giftFlag && (randomNumber == 1 || randomNumber == 2 || randomNumber == 3) && !FlagGet(gMatchCallTrainers[matchCallId].giftFlag) && isCallingPlayer)
-    {
-    	FlagSet(gMatchCallTrainers[matchCallId].giftFlag);
-    	matchCallText = &gMatchCallTrainers[matchCallId].giftText;
-    }
-    else if (isCallingPlayer && gMatchCallTrainers[matchCallId].outbreakData.species != SPECIES_NONE && gSaveBlock1Ptr->outbreakPokemonSpecies == SPECIES_NONE
-    		&& randomNumber == 4)
-    {
-        matchCallText = &gMatchCallTrainers[matchCallId].outbreakText;
-        struct massOutbreakPhoneCallData* outbreakData = &gMatchCallTrainers[matchCallId].outbreakData;
-        MatchCall_StartMassOutbreak(outbreakData);
-    }
-    else
-    {*/
-        // Message talking about something else
-        matchCallText = GetGenericMatchCallText(matchCallId, str);
-    //}
+    matchCallText = GetGenericMatchCallText(matchCallId, str);
 
     BuildMatchCallString(matchCallId, matchCallText, str);
     return retVal;
@@ -2214,13 +2060,13 @@ static bool32 PopulateRareSpeciesFromTrainerLocation(void)
     u16 species[2];
     u8 timeOfDay;
     int i = 0;
+    u32 phoneContactId;
 
     RtcCalcLocalTime();
     timeOfDay = GetCurrentTimeOfDay();
+    phoneContactId = GetPhoneContactFromRematchTrainerId(gSpecialVar_0x800A);
 
-    u32 phoneContactId = GetPhoneContactFromRematchTrainerId(gSpecialVar_0x800A);
-
-    if (gWildMonHeaders[i].mapGroup != MAP_GROUP(UNDEFINED)) // ??? This check is nonsense.
+    if (gWildMonHeaders[i].mapGroup != MAP_GROUP(UNDEFINED))
     {
         while (gWildMonHeaders[i].mapGroup != MAP_GROUP(UNDEFINED))
         {
@@ -2237,16 +2083,16 @@ static bool32 PopulateRareSpeciesFromTrainerLocation(void)
             {
                 u32 slot = (Random() % 4) + 8;
 
-                species[0] = gWildMonHeaders[i].landMonsInfo->wildPokemon[timeOfDay][slot].species; // One of the last four slots
-                species[1] = gWildMonHeaders[i].landMonsInfo->wildPokemon[timeOfDay][0].species;    // Most common slot
+                species[0] = gWildMonHeaders[i].landMonsInfo->wildPokemon[timeOfDay][slot].species;
+                species[1] = gWildMonHeaders[i].landMonsInfo->wildPokemon[timeOfDay][0].species;
                 
                 if(species[0] == species[1])
-                {   // common mon was selected
+                {
                     return FALSE;
                 }
                 
                 if(GetSetPokedexFlag(SpeciesToNationalPokedexNum(species[0]), FLAG_GET_SEEN))
-                {  // rare mon was already seen
+                {
                     return FALSE;
                 }
 
@@ -2255,6 +2101,7 @@ static bool32 PopulateRareSpeciesFromTrainerLocation(void)
             }
         }
     }
+    return FALSE;
 }
 
 static void PopulateSpeciesFromTrainerLocation(int matchCallId, u8 *destStr)
@@ -2264,13 +2111,13 @@ static void PopulateSpeciesFromTrainerLocation(int matchCallId, u8 *destStr)
     u8 slot;
     int i = 0;
     u8 timeOfDay;
+    u32 phoneContactId;
     
     RtcCalcLocalTime();
     timeOfDay = GetCurrentTimeOfDay();
+    phoneContactId = GetPhoneContactFromTrainerId(gMatchCallTrainers[matchCallId].trainerId);
 
-    u32 phoneContactId = GetPhoneContactFromTrainerId(gMatchCallTrainers[matchCallId].trainerId);
-
-    if (gWildMonHeaders[i].mapGroup != MAP_GROUP(UNDEFINED)) // ??? This check is nonsense.
+    if (gWildMonHeaders[i].mapGroup != MAP_GROUP(UNDEFINED))
     {
         while (gWildMonHeaders[i].mapGroup != MAP_GROUP(UNDEFINED))
         {
@@ -2395,13 +2242,13 @@ static int GetNumOwnedBadges(void)
     return i;
 }
 
-// Whether or not a trainer calling the player from a different route should request a battle
 static bool32 ShouldTrainerRequestBattle(u32 rematchId, u32 matchCallId)
 {
+    u32 i;
 
     if(!FlagGet(gMatchCallTrainers[matchCallId].rematchForcedFlag))
     {
-        u32 i = Random() % 3;
+        i = Random() % 3;
         if(i == 0 || i == 1)
             return TRUE;
     }
@@ -2527,46 +2374,29 @@ static const struct MomItemTable MomItems_2[] = {
     { 30000,  4800, TRUE,  DOLL_CLEFAIRY},
     { 40000,   900, FALSE, ITEM_HYPER_POTION},
     { 50000,  8000, TRUE,  DOLL_PIKACHU},
-    {100000, 22800, TRUE,  BIG_DOLL_SNORLAX + 1}, // BIG_DOLL_SNORLAX expands to 1, which is the same as DOLL_PIKACHU. Oops.
+    {100000, 22800, TRUE,  BIG_DOLL_SNORLAX + 1},
 };
 
 static void MomTriesToBuySomethingFromTable1(void)
 {
-    /*
-    u32 i;
-    u32 moneyMatch;
-    
-    // Determine the multiples of 2300 match here. If false, return.
-
-    i = Random() % ARRAY_COUNT(MomItems_1);
-
-    // will always have enough money, since this triggers for multiples of 2300
-    // and nothing in MomItems_1 has a price > 2300
-
-    if(AddPCItem(MomItems_1[i].item, 1))
-    {
-        FlagSet(FLAG_FORCED_CALL_MOM_ITEM);
-        VarSet(VAR_0x8004, 0);
-        RemoveMoney(&gSaveBlock1Ptr->bankedMoney, MomItems_1[i].price);
-    }
-    */
     return;
 }
 
 void MomTriesToBuySomething(void)
 {
+    u32 i;
+
     if(MapAllowsMatchCall())
     {
-        u32 i =  VarGet(VAR_MOM_BOUGHT_ITEMS);
+        i = VarGet(VAR_MOM_BOUGHT_ITEMS);
         if(i >= ARRAY_COUNT(MomItems_2) || !IsEnoughMoney(&gSaveBlock1Ptr->bankedMoney, MomItems_2[i].threshold))
         {
-            //secondary table
             MomTriesToBuySomethingFromTable1();
         }
         else
         {
             if(!MomItems_2[i].itemType)
-            {   // regular item
+            {
                 if(AddPCItem(MomItems_2[i].item, 1))
                 {
                     FlagSet(FLAG_FORCED_CALL_MOM_ITEM);
@@ -2577,13 +2407,13 @@ void MomTriesToBuySomething(void)
                 return;
             }
             else
-            {   // doll
+            {
                 switch(MomItems_2[i].item)
                 {
                     case DOLL_CHARMANDER:
                         if(gSaveBlock1Ptr->roomDecorInventory.charmanderDoll < 2)
                             gSaveBlock1Ptr->roomDecorInventory.charmanderDoll += 1;
-                        else // somehow already have 2, remove from Mom's buy list
+                        else
                         {
                             VarSet(VAR_MOM_BOUGHT_ITEMS, i + 1);
                             return;
@@ -2592,7 +2422,7 @@ void MomTriesToBuySomething(void)
                     case DOLL_CLEFAIRY:
                         if(gSaveBlock1Ptr->roomDecorInventory.clefairyDoll < 2)
                             gSaveBlock1Ptr->roomDecorInventory.clefairyDoll += 1;
-                        else // somehow already have 2, remove from Mom's buy list
+                        else
                         {
                             VarSet(VAR_MOM_BOUGHT_ITEMS, i + 1);
                             return;
@@ -2601,7 +2431,7 @@ void MomTriesToBuySomething(void)
                     case DOLL_PIKACHU:
                         if(gSaveBlock1Ptr->roomDecorInventory.pikachuDoll < 2)
                             gSaveBlock1Ptr->roomDecorInventory.pikachuDoll += 1;
-                        else // somehow already have 2, remove from Mom's buy list
+                        else
                         {
                             VarSet(VAR_MOM_BOUGHT_ITEMS, i + 1);
                             return;
@@ -2610,7 +2440,7 @@ void MomTriesToBuySomething(void)
                     case BIG_DOLL_SNORLAX + 1:
                         if(gSaveBlock1Ptr->roomDecorInventory.bigSnorlax != 1)
                             gSaveBlock1Ptr->roomDecorInventory.bigSnorlax = 1;
-                        else // somehow already have 1, remove from Mom's buy list
+                        else
                         {
                             VarSet(VAR_MOM_BOUGHT_ITEMS, i + 1);
                             return;
@@ -2695,13 +2525,7 @@ void MatchCall_StartMassOutbreak(struct massOutbreakPhoneCallData *massOutbreak)
 {
     gSaveBlock1Ptr->outbreakPokemonSpecies = massOutbreak->species;
     gSaveBlock1Ptr->outbreakLocationMapNum = massOutbreak->location_map_num;
-    //gSaveBlock1Ptr->outbreakLocationMapGroup = massOutbreak->location_map_group;
-    //Map group seems not to be used
     gSaveBlock1Ptr->outbreakPokemonLevel = massOutbreak->level;
-    //gSaveBlock1Ptr->outbreakPokemonMoves[0] = massOutbreak->moves[0];
-    //gSaveBlock1Ptr->outbreakPokemonMoves[1] = massOutbreak->moves[1];
-    //gSaveBlock1Ptr->outbreakPokemonMoves[2] = massOutbreak->moves[2];
-    //gSaveBlock1Ptr->outbreakPokemonMoves[3] = massOutbreak->moves[3];
     gSaveBlock1Ptr->outbreakPokemonProbability = massOutbreak->probability;
     gSaveBlock1Ptr->outbreakWildState = massOutbreak->wildState;
     gSaveBlock1Ptr->outbreakSpecialLevel1 = massOutbreak->specialLevel1;
@@ -2735,4 +2559,3 @@ void MatchCall_TryEndMassOutbreak(u16 days)
     else
         gSaveBlock1Ptr->outbreakDaysLeft -= days;
 }
-
