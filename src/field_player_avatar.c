@@ -728,6 +728,7 @@ static u8 sub_808B028(u8 direction)
 
 u8 CheckForObjectEventCollision(struct ObjectEvent *objectEvent, s16 x, s16 y, u8 direction, u8 metatileBehavior)
 {
+    u8 collision2;
     u32 collision = GetCollisionAtCoords(objectEvent, x, y, direction);
     if (collision == COLLISION_ELEVATION_MISMATCH && CanStopSurfing(x, y, direction))
         return COLLISION_STOP_SURFING;
@@ -752,7 +753,7 @@ u8 CheckForObjectEventCollision(struct ObjectEvent *objectEvent, s16 x, s16 y, u
     {
         if (CheckForRotatingGatePuzzleCollision(direction, x, y))
             return COLLISION_ROTATING_GATE;
-        u8 collision2 = collision;
+        collision2 = collision;
         CheckAcroBikeCollision(x, y, metatileBehavior, &collision2);
     }
     return collision;
