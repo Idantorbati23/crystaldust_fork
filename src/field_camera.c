@@ -103,13 +103,16 @@ void DrawWholeMapView(void)
 
 static void DrawWholeMapViewInternal(int x, int y, const struct MapLayout *mapLayout)
 {
-    for (u32 i = 0; i < 32; i += 2)
-    {
-        u32 yOffset = ((sFieldCameraOffset.yTileOffset + i) & 31) * 32;
+    u32 i, j;
+    u32 xOffset, yOffset;
 
-        for (u32 j = 0; j < 32; j += 2)
+    for (i = 0; i < 32; i += 2)
+    {
+        yOffset = ((sFieldCameraOffset.yTileOffset + i) & 31) * 32;
+
+        for (j = 0; j < 32; j += 2)
         {
-            u32 xOffset = (sFieldCameraOffset.xTileOffset + j) & 31;
+            xOffset = (sFieldCameraOffset.xTileOffset + j) & 31;
             DrawMetatileAt(mapLayout, yOffset + xOffset, x + (j >> 1), y + (i >> 1));
         }
     }
