@@ -62,7 +62,7 @@ enum {
 #define STRS_NORMAL_MSG      {STR_TRAINER_NAME, STR_NONE,             STR_NONE}
 #define STRS_WILD_BATTLE     {STR_TRAINER_NAME, STR_SPECIES_IN_ROUTE, STR_NONE}
 #define STRS_BATTLE_NEGATIVE {STR_TRAINER_NAME, STR_NONE,             STR_NONE}
-#define STRS_BATTLE_POSITIVE {STR_TRAINER_NAME, STR_SPECIES_IN_PARTY, STR_NONE}
+#define STRS_BATTLE_POSITIVE {STR_TRAINER_NAME, STR_NONE,             STR_SPECIES_IN_PARTY}
 #define STRS_BATTLE_REQUEST  {STR_TRAINER_NAME, STR_MAP_NAME,         STR_NONE}
 #define STRS_SWARM_MSG		 {STR_TRAINER_NAME, STR_MAP_NAME,         STR_NONE}
 #define STRS_GIFT_MSG		 {STR_TRAINER_NAME, STR_MAP_NAME,         STR_NONE}
@@ -1794,6 +1794,7 @@ void SelectMatchCallMessage_Rematch(int trainerId, u8 *str, bool8 isCallingPlaye
 	u32 rematchId;
     u32 tableId;
 	const struct MatchCallText *matchCallText;
+    u16 trainerId2 = gRematchTable[tableId].trainerIds[i]; // Fixed C89 variable placement
 
 	tableId = matchCallId = GetTrainerMatchCallId(trainerId);
     rematchId = getRematchIdFromTrainerId(trainerId);
@@ -2060,11 +2061,10 @@ static bool32 PopulateRareSpeciesFromTrainerLocation(void)
     u16 species[2];
     u8 timeOfDay;
     int i = 0;
-    u32 phoneContactId;
+    u32 phoneContactId = GetPhoneContactFromRematchTrainerId(gSpecialVar_0x800A); // Fixed C89 variable placement
 
     RtcCalcLocalTime();
     timeOfDay = GetCurrentTimeOfDay();
-    phoneContactId = GetPhoneContactFromRematchTrainerId(gSpecialVar_0x800A);
 
     if (gWildMonHeaders[i].mapGroup != MAP_GROUP(UNDEFINED))
     {
@@ -2111,11 +2111,10 @@ static void PopulateSpeciesFromTrainerLocation(int matchCallId, u8 *destStr)
     u8 slot;
     int i = 0;
     u8 timeOfDay;
-    u32 phoneContactId;
+    u32 phoneContactId = GetPhoneContactFromTrainerId(gMatchCallTrainers[matchCallId].trainerId); // Fixed C89 variable placement
     
     RtcCalcLocalTime();
     timeOfDay = GetCurrentTimeOfDay();
-    phoneContactId = GetPhoneContactFromTrainerId(gMatchCallTrainers[matchCallId].trainerId);
 
     if (gWildMonHeaders[i].mapGroup != MAP_GROUP(UNDEFINED))
     {
@@ -2244,11 +2243,10 @@ static int GetNumOwnedBadges(void)
 
 static bool32 ShouldTrainerRequestBattle(u32 rematchId, u32 matchCallId)
 {
-    u32 i;
+    u32 i = Random() % 3; // Fixed C89 variable placement
 
     if(!FlagGet(gMatchCallTrainers[matchCallId].rematchForcedFlag))
     {
-        i = Random() % 3;
         if(i == 0 || i == 1)
             return TRUE;
     }
@@ -2384,11 +2382,10 @@ static void MomTriesToBuySomethingFromTable1(void)
 
 void MomTriesToBuySomething(void)
 {
-    u32 i;
+    u32 i = VarGet(VAR_MOM_BOUGHT_ITEMS); // Fixed C89 variable placement
 
     if(MapAllowsMatchCall())
     {
-        i = VarGet(VAR_MOM_BOUGHT_ITEMS);
         if(i >= ARRAY_COUNT(MomItems_2) || !IsEnoughMoney(&gSaveBlock1Ptr->bankedMoney, MomItems_2[i].threshold))
         {
             MomTriesToBuySomethingFromTable1();
