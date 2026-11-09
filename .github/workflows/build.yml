@@ -43,13 +43,14 @@ jobs:
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=${DEVKITARM}/bin:${PATH}
 
-          # Ensure a completely pristine build directory to clear duplicate object bugs
-          make clean
+          # Clean any stale build files
+          make clean || true
 
-          # Build tools first (agbcc, preproc, gbagfx, etc.) explicitly
-          make tools -j$(nproc)
+          # Explicitly build tools first (generates agbcc, preproc, etc.)
+          make -C tools/agbcc
+          make -C tools/preproc
 
-          # Compile the ROM safely (using single-core or parallel safely)
+          # Compile the ROM
           make -j$(nproc)
 
       - name: Upload Compiled ROM
