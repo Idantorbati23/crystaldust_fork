@@ -46,7 +46,7 @@ jobs:
 
       - name: Install devkitPro Pacman via Official Script
         run: |
-          wget https://apt.devkitpro.org/install-devkitpro-pacman
+          wget -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" https://apt.devkitpro.org/install-devkitpro-pacman
           chmod +x ./install-devkitpro-pacman
           sudo ./install-devkitpro-pacman
 
@@ -57,7 +57,6 @@ jobs:
       - name: Build Project Tools and Compile ROM
         shell: bash
         run: |
-          # Source devkitPro environment script if present
           if [ -f /etc/profile.d/devkit-env.sh ]; then
             source /etc/profile.d/devkit-env.sh
           fi
