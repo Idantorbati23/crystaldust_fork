@@ -15,16 +15,17 @@ jobs:
       image: devkitpro/toolchain-base:latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repository with Submodules
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          submodules: recursive
 
       - name: Fix Git Safe Directory Ownership
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Ensure agbcc Tool Exists
+      - name: Ensure agbcc Tool Exists & Is Valid
         run: |
           if [ ! -d "tools/agbcc" ] || [ -z "$(ls -A tools/agbcc)" ]; then
             echo "tools/agbcc is missing or empty. Cloning directly..."
@@ -44,43 +45,51 @@ jobs:
             python3 \
             libpng-dev \
             zlib1g-dev \
+            curl \
             gcc-arm-none-eabi \
             binutils-arm-none-eabi
 
-      - name: Build Project Tools and Compile ROM
+      - name: Build Tools Sequentially (No Race Conditions)
         shell: bash
         run: |
           export DEVKITPRO=/opt/devkitpro
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=/usr/bin:${DEVKITARM}/bin:${PATH}
 
-          # Ensure symlinks for cross-compiler tools are explicitly verified
-          which arm-none-eabi-as
-          which arm-none-eabi-ar
-          which arm-none-eabi-gcc
-
-          # 1. Build agbcc explicitly with proper environment variables
+          # 1. Build agbcc explicitly
           if [ -f "tools/agbcc/build.sh" ]; then
             cd tools/agbcc && ./build.sh && cd ../..
           else
             make -C tools/agbcc CC=gcc CXX=g++
           fi
 
-          # 2. Build preproc tool if available
-          if [ -d "tools/preproc" ]; then
+          # 2. Explicitly build all repository tools first (prevents parallel compilation crashes)
+          if make -n tools >/dev/null 2>&1; then
+            make tools
+          else
+            # Fallback for makefiles that use individual tool targets
             make -C tools/preproc || true
+            make -C tools/gbagfx || true
+            make -C tools/jsonproc || true
           fi
 
-          # 3. Clean any lingering build artifacts to prevent duplicate .o errors (arm-none-eabi-ar exit code 2)
+      - name: Clean Stale Artifacts and Compile ROM
+        shell: bash
+        run: |
+          export DEVKITPRO=/opt/devkitpro
+          export DEVKITARM=${DEVKITPRO}/devkitARM
+          export PATH=/usr/bin:${DEVKITARM}/bin:${PATH}
+
+          # Purge any old object/archive artifacts to prevent duplicate .o linkage errors
           make clean || true
 
-          # 4. Compile the final ROM in parallel
+          # Compile the final ROM safely in parallel now that all tools are built
           make -j$(nproc)
 
       - name: Upload Compiled ROM
         uses: actions/upload-artifact@v4
         with:
-          name: crystaldust-rom
+          name: crystaldust-rom-${{ github.ref_name }}-${{ github.sha }}
           path: |
             *.gba
             *.map
