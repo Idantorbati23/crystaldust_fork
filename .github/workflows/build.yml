@@ -15,20 +15,24 @@ jobs:
       image: devkitpro/toolchain-base:latest
 
     steps:
-      - name: Checkout Repository with Submodules
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          submodules: recursive
           fetch-depth: 0
 
       - name: Fix Git Safe Directory Ownership
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Force Initialize and Update Submodules
+      - name: Ensure agbcc Tool Exists
         run: |
-          git submodule sync --recursive
-          git submodule update --init --recursive --force
+          if [ ! -d "tools/agbcc" ] || [ -z "$(ls -A tools/agbcc)" ]; then
+            echo "tools/agbcc is missing or empty. Cloning directly..."
+            rm -rf tools/agbcc
+            git clone https://github.com/pret/agbcc tools/agbcc
+          else
+            echo "tools/agbcc found."
+          fi
 
       - name: Install System Dependencies
         run: |
@@ -52,7 +56,7 @@ jobs:
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=${DEVKITARM}/bin:${PATH}
 
-          # Clean any old states
+          # Clean any stale build states safely
           make clean || true
 
           # Build agbcc and preproc tools explicitly
