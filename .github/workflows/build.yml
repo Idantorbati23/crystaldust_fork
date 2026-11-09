@@ -49,16 +49,19 @@ jobs:
             gcc-arm-none-eabi \
             binutils-arm-none-eabi
 
-      - name: Build Tools Sequentially
+      - name: Build and Install agbcc and Repository Tools
         shell: bash
         run: |
           export DEVKITPRO=/opt/devkitpro
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=/usr/bin:${DEVKITARM}/bin:${PATH}
 
-          # 1. Build agbcc explicitly
+          # 1. Build and install agbcc (populates tools/agbcc/include with stddef.h)
           if [ -f "tools/agbcc/build.sh" ]; then
-            cd tools/agbcc && ./build.sh && cd ../..
+            cd tools/agbcc
+            ./build.sh
+            ./install.sh ..
+            cd ../..
           else
             make -C tools/agbcc CC=gcc CXX=g++
           fi
@@ -79,19 +82,11 @@ jobs:
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=/usr/bin:${DEVKITARM}/bin:${PATH}
           
-          # Explicitly export agbcc environment variables and include paths
+          # Explicitly export agbcc environment variables
           export AGBCC="$PWD/tools/agbcc/agbcc"
           export CC1="$PWD/tools/agbcc/agbcc"
-          
-          # Find the exact path of arm-none-eabi gcc include directory for stddef.h
-          GCC_INCLUDE_DIR=$(arm-none-eabi-gcc -print-file-name=include)
-          export CFLAGS="-I$GCC_INCLUDE_DIR -I$PWD/tools/agbcc/include"
-          export CPPFLAGS="-I$GCC_INCLUDE_DIR -I$PWD/tools/agbcc/include"
 
-          ls -l "$AGBCC"
-          echo "Using GCC include directory: $GCC_INCLUDE_DIR"
-
-          # Compile ROM
+          # Run the build
           make
 
       - name: Upload Compiled ROM
