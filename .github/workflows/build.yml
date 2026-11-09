@@ -63,27 +63,23 @@ jobs:
             make -C tools/agbcc CC=gcc CXX=g++
           fi
 
-          # 2. Explicitly build all repository tools first (prevents parallel compilation crashes)
+          # 2. Explicitly build all repository tools first
           if make -n tools >/dev/null 2>&1; then
             make tools
           else
-            # Fallback for makefiles that use individual tool targets
             make -C tools/preproc || true
             make -C tools/gbagfx || true
             make -C tools/jsonproc || true
           fi
 
-      - name: Clean Stale Artifacts and Compile ROM
+      - name: Compile Final ROM
         shell: bash
         run: |
           export DEVKITPRO=/opt/devkitpro
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=/usr/bin:${DEVKITARM}/bin:${PATH}
 
-          # Purge any old object/archive artifacts to prevent duplicate .o linkage errors
-          make clean || true
-
-          # Compile the final ROM safely in parallel now that all tools are built
+          # Compile the ROM safely in parallel now that tools are safely preserved
           make -j$(nproc)
 
       - name: Upload Compiled ROM
