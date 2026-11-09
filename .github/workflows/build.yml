@@ -21,6 +21,10 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
+      - name: Mark Workspace as Safe Directory
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Ensure Submodules are Synced
         run: |
           git submodule sync --recursive
@@ -52,16 +56,13 @@ jobs:
       - name: Build Project Tools and ROM
         shell: bash
         run: |
-          # Export devkitARM environment variables
           export DEVKITPRO=/opt/devkitpro
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=${DEVKITARM}/bin:${PATH}
 
-          # Build agbcc and preproc explicitly
+          make clean || true
           make -C tools/agbcc
           make -C tools/preproc
-
-          # Compile the ROM
           make -j$(nproc)
 
       - name: Upload Compiled ROM
