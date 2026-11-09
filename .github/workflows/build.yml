@@ -40,17 +40,30 @@ jobs:
             git \
             python3 \
             libpng-dev \
-            zlib1g-dev
+            zlib1g-dev \
+            wget \
+            gdebi-core
 
-      - name: Install GBA Toolchain via devkitPro Action
-        uses: devkitPro/actions/install@v3
-        with:
-          packages: gba-dev devkitarm-rules
+      - name: Install devkitPro Pacman via Official Script
+        run: |
+          wget https://apt.devkitpro.org/install-devkitpro-pacman
+          chmod +x ./install-devkitpro-pacman
+          sudo ./install-devkitpro-pacman
+
+      - name: Install GBA Toolchain via dkp-pacman
+        run: |
+          sudo dkp-pacman -Syu --noconfirm gba-dev devkitarm-rules
 
       - name: Build Project Tools and Compile ROM
         shell: bash
         run: |
-          # devkitPro action automatically sets DEVKITPRO, DEVKITARM, and updates PATH
+          # Source devkitPro environment script if present
+          if [ -f /etc/profile.d/devkit-env.sh ]; then
+            source /etc/profile.d/devkit-env.sh
+          fi
+          export DEVKITPRO=/opt/devkitpro
+          export DEVKITARM=${DEVKITPRO}/devkitARM
+          export PATH=${DEVKITARM}/bin:${PATH}
 
           # Build agbcc and preproc tools explicitly
           if [ -f "tools/agbcc/build.sh" ]; then
