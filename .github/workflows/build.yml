@@ -45,12 +45,11 @@ jobs:
         run: |
           echo "DEVKITPRO=/opt/devkitpro" >> $GITHUB_ENV
           echo "DEVKITARM=/opt/devkitpro/devkitarm" >> $GITHUB_PATH
-
       - name: Compile CrystalDust ROM
         run: |
           export DEVKITPRO=/opt/devkitpro
           export DEVKITARM=/opt/devkitpro/devkitarm
-          export PATH="$DEVKITARM/bin:$PATH"
+          export PATH="$DEVKITPRO/tools/bin:$DEVKITARM/bin:$PATH"
           make -j$(nproc) MODERN=1 COMPARE=0
 
       - name: Upload ROM artifact
