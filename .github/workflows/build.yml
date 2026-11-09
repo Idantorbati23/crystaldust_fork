@@ -25,10 +25,6 @@ jobs:
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Explicitly Fetch Submodules
-        run: |
-          git submodule foreach --recursive git submodule update --init --force
-
       - name: Install System Dependencies
         run: |
           apt-get update
@@ -44,17 +40,24 @@ jobs:
         run: |
           dkp-pacman -Syu --noconfirm gba-dev devkitarm-rules
 
-      - name: Build Project Tools and ROM
+      - name: Ensure Submodules are Initialized & Updated
+        run: |
+          git submodule update --init --recursive --force
+
+      - name: Build Project Tools and Compile ROM
         shell: bash
         run: |
           export DEVKITPRO=/opt/devkitpro
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=${DEVKITARM}/bin:${PATH}
 
-          # Clean any old states
-          make clean || true
+          # Verify tools/agbcc exists before building
+          if [ ! -d "tools/agbcc" ]; then
+            echo "Error: tools/agbcc submodule is missing."
+            exit 1
+          fi
 
-          # Build agbcc and preproc tools
+          # Build agbcc and preproc tools explicitly
           make -C tools/agbcc
           make -C tools/preproc
 
