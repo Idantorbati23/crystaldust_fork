@@ -49,7 +49,7 @@ jobs:
             gcc-arm-none-eabi \
             binutils-arm-none-eabi
 
-      - name: Build Tools Sequentially (No Race Conditions)
+      - name: Build Tools Sequentially (Preserving Binaries)
         shell: bash
         run: |
           export DEVKITPRO=/opt/devkitpro
@@ -63,7 +63,7 @@ jobs:
             make -C tools/agbcc CC=gcc CXX=g++
           fi
 
-          # 2. Explicitly build all repository tools first
+          # 2. Build repository tools sequentially
           if make -n tools >/dev/null 2>&1; then
             make tools
           else
@@ -72,15 +72,18 @@ jobs:
             make -C tools/jsonproc || true
           fi
 
-      - name: Compile Final ROM
+      - name: Compile Final ROM Safely
         shell: bash
         run: |
           export DEVKITPRO=/opt/devkitpro
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=/usr/bin:${DEVKITARM}/bin:${PATH}
 
-          # Compile the ROM safely in parallel now that tools are safely preserved
-          make -j$(nproc)
+          # Run an initial single-threaded pass to safely build libraries and prevent archiver races (RLUnCompVram duplicate .o)
+          make
+
+          # Finish any remaining parallel targets if needed
+          make -j$(nproc) || true
 
       - name: Upload Compiled ROM
         uses: actions/upload-artifact@v4
