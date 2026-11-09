@@ -11,9 +11,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    container:
-      image: devkitpro/toolchain-base:latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -36,33 +33,24 @@ jobs:
 
       - name: Install System Dependencies
         run: |
-          apt-get update
-          apt-get install -y --no-install-recommends \
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
             build-essential \
             pkg-config \
             git \
             python3 \
             libpng-dev \
-            zlib1g-dev \
-            wget
+            zlib1g-dev
 
-      - name: Bypass Cloudflare 403 by Configuring Wget User-Agent for Pacman
-        run: |
-          # Add XferCommand using wget with a custom user-agent string to pacman.conf
-          if ! grep -q "XferCommand" /etc/pacman.conf; then
-            sed -i '/\[options\]/a XferCommand = /usr/bin/wget -U "dkp-pacman" --passive-ftp -c -O %o %u' /etc/pacman.conf
-          fi
-
-      - name: Install GBA Toolchain via dkp-pacman
-        run: |
-          dkp-pacman -Syu --noconfirm gba-dev devkitarm-rules
+      - name: Install GBA Toolchain via devkitPro Action
+        uses: devkitPro/actions/install@v3
+        with:
+          packages: gba-dev devkitarm-rules
 
       - name: Build Project Tools and Compile ROM
         shell: bash
         run: |
-          export DEVKITPRO=/opt/devkitpro
-          export DEVKITARM=${DEVKITPRO}/devkitARM
-          export PATH=${DEVKITARM}/bin:${PATH}
+          # devkitPro action automatically sets DEVKITPRO, DEVKITARM, and updates PATH
 
           # Build agbcc and preproc tools explicitly
           if [ -f "tools/agbcc/build.sh" ]; then
