@@ -1,10 +1,11 @@
-name: CI
+name: Build CrystalDust ROM
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "main", "master", "progress" ]
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [ "main", "master", "progress" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,20 +15,36 @@ jobs:
       image: devkitpro/devkitarm:latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: Install dependencies
+      - name: Install System Dependencies
         run: |
-          apt-get update && apt-get install -y build-essential pkg-config git python3
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            build-essential \
+            pkg-config \
+            git \
+            python3 \
+            libpng-dev
 
-      - name: Build tools and agbcc
+      - name: Build Build Tools (agbcc & preproc)
         run: |
           make -C tools/agbcc
           make -C tools/preproc
+          if [ -d "tools/gbagfx" ]; then make -C tools/gbagfx; fi
+          if [ -d "tools/scaninc" ]; then make -C tools/scaninc; fi
 
       - name: Compile ROM
         run: |
           make -j$(nproc)
+
+      - name: Upload Compiled ROM
+        uses: actions/upload-artifact@v4
+        with:
+          name: crystaldust-rom
+          path: |
+            *.gba
+            *.map
