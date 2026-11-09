@@ -48,8 +48,6 @@ jobs:
         run: |
           wget -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" https://apt.devkitpro.org/install-devkitpro-pacman
           chmod +x ./install-devkitpro-pacman
-          
-          # Run installer, but handle potential post-install failure due to cloudflare 403
           sudo ./install-devkitpro-pacman || true
 
       - name: Configure dkp-pacman to use Wget User-Agent (Bypass Cloudflare 403)
@@ -58,7 +56,6 @@ jobs:
           if [ -f "$PACMAN_CONF" ]; then
             sudo sed -i '/\[options\]/a XferCommand = /usr/bin/wget -U "dkp-pacman" --passive-ftp -c -O %o %u' "$PACMAN_CONF"
           fi
-          # Retry configuring any interrupted packages
           sudo dpkg --configure -a
 
       - name: Install GBA Toolchain via dkp-pacman
@@ -86,7 +83,10 @@ jobs:
             make -C tools/preproc || true
           fi
 
-          # Compile the final ROM
+          # Clear any stale generated object/archive files to prevent duplicate .o errors
+          make clean || true
+
+          # Compile the final ROM safely
           make -j$(nproc)
 
       - name: Upload Compiled ROM
