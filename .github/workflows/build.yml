@@ -44,19 +44,29 @@ jobs:
             wget \
             gdebi-core
 
+      - name: Pre-configure Pacman with Wget User-Agent to Bypass Cloudflare 403
+        run: |
+          sudo mkdir -p /opt/devkitpro/pacman/etc/
+          sudo tee /opt/devkitpro/pacman/etc/pacman.conf > /dev/null << 'EOF'
+          [options]
+          HoldPkg     = pacman glibc
+          Architecture = auto
+          SigLevel    = Required DatabaseOptional
+          LocalFileSigLevel = Optional
+          XferCommand = /usr/bin/wget -U "dkp-pacman" --passive-ftp -c -O %o %u
+
+          [dkp-libs]
+          Server = https://pkg.devkitpro.org/packages
+
+          [dkp-linux]
+          Server = https://pkg.devkitpro.org/packages
+          EOF
+
       - name: Install devkitPro Pacman via Official Script
         run: |
           wget -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" https://apt.devkitpro.org/install-devkitpro-pacman
           chmod +x ./install-devkitpro-pacman
-          sudo ./install-devkitpro-pacman || true
-
-      - name: Configure dkp-pacman to use Wget User-Agent (Bypass Cloudflare 403)
-        run: |
-          PACMAN_CONF="/opt/devkitpro/pacman/etc/pacman.conf"
-          if [ -f "$PACMAN_CONF" ]; then
-            sudo sed -i '/\[options\]/a XferCommand = /usr/bin/wget -U "dkp-pacman" --passive-ftp -c -O %o %u' "$PACMAN_CONF"
-          fi
-          sudo dpkg --configure -a
+          sudo ./install-devkitpro-pacman || sudo dpkg --configure -a
 
       - name: Install GBA Toolchain via dkp-pacman
         run: |
