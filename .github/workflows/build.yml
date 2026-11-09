@@ -56,14 +56,18 @@ jobs:
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=${DEVKITARM}/bin:${PATH}
 
-          # Clean any stale build states safely
-          make clean || true
+          # 1. Build agbcc and preproc first so the binaries exist
+          if [ -f "tools/agbcc/build.sh" ]; then
+            cd tools/agbcc && ./build.sh && cd ../..
+          else
+            make -C tools/agbcc || gcc -O2 tools/agbcc/agbcc.c -o tools/agbcc/agbcc
+          fi
 
-          # Build agbcc and preproc tools explicitly
-          make -C tools/agbcc
-          make -C tools/preproc
+          if [ -d "tools/preproc" ]; then
+            make -C tools/preproc || true
+          fi
 
-          # Compile the final ROM
+          # 2. Compile the final ROM using parallel jobs
           make -j$(nproc)
 
       - name: Upload Compiled ROM
