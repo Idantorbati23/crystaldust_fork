@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: devkitpro/devkitarm:latest
+      image: devkitpro/toolchain-base:latest
 
     steps:
       - name: Checkout Repository
@@ -20,15 +20,9 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install System Dependencies
+      - name: Install GBA Development Toolchain
         run: |
-          apt-get update
-          apt-get install -y --no-install-recommends \
-            build-essential \
-            pkg-config \
-            git \
-            python3 \
-            libpng-dev
+          dkp-pacman -Syu --noconfirm gba-dev devkitarm-rules
 
       - name: Compile ROM
         run: |
