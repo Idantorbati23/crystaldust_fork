@@ -34,7 +34,7 @@ jobs:
             echo "tools/agbcc found."
           fi
 
-      - name: Install System Dependencies
+      - name: Install System Dependencies & ARM Toolchain
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
@@ -43,30 +43,38 @@ jobs:
             git \
             python3 \
             libpng-dev \
-            zlib1g-dev
+            zlib1g-dev \
+            gcc-arm-none-eabi \
+            binutils-arm-none-eabi
 
       - name: Build Project Tools and Compile ROM
         shell: bash
         run: |
           export DEVKITPRO=/opt/devkitpro
           export DEVKITARM=${DEVKITPRO}/devkitARM
-          export PATH=${DEVKITARM}/bin:${PATH}
+          export PATH=/usr/bin:${DEVKITARM}/bin:${PATH}
 
-          # Build agbcc and preproc tools explicitly
+          # Ensure symlinks for cross-compiler tools are explicitly verified
+          which arm-none-eabi-as
+          which arm-none-eabi-ar
+          which arm-none-eabi-gcc
+
+          # 1. Build agbcc explicitly with proper environment variables
           if [ -f "tools/agbcc/build.sh" ]; then
             cd tools/agbcc && ./build.sh && cd ../..
           else
-            make -C tools/agbcc || gcc -O2 tools/agbcc/agbcc.c -o tools/agbcc/agbcc
+            make -C tools/agbcc CC=gcc CXX=g++
           fi
 
+          # 2. Build preproc tool if available
           if [ -d "tools/preproc" ]; then
             make -C tools/preproc || true
           fi
 
-          # Clear any stale generated object/archive files to prevent duplicate .o errors
+          # 3. Clean any lingering build artifacts to prevent duplicate .o errors (arm-none-eabi-ar exit code 2)
           make clean || true
 
-          # Compile the final ROM safely in parallel
+          # 4. Compile the final ROM in parallel
           make -j$(nproc)
 
       - name: Upload Compiled ROM
