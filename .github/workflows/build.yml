@@ -19,6 +19,20 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+          fetch-depth: 0
+
+      - name: Ensure Submodules are Synced
+        run: |
+          git submodule sync --recursive
+          git submodule update --init --recursive
+
+      - name: Verify agbcc Folder Exists
+        run: |
+          if [ ! -d "tools/agbcc" ]; then
+            echo "Error: tools/agbcc directory is missing!"
+            exit 1
+          fi
+          ls -la tools/agbcc
 
       - name: Install System Dependencies
         run: |
@@ -38,15 +52,12 @@ jobs:
       - name: Build Project Tools and ROM
         shell: bash
         run: |
-          # Export devkitARM environment variables so make finds toolchain binaries
+          # Export devkitARM environment variables
           export DEVKITPRO=/opt/devkitpro
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=${DEVKITARM}/bin:${PATH}
 
-          # Clean any stale build files
-          make clean || true
-
-          # Explicitly build tools first (generates agbcc, preproc, etc.)
+          # Build agbcc and preproc explicitly
           make -C tools/agbcc
           make -C tools/preproc
 
