@@ -11,6 +11,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    container:
+      image: devkitpro/toolchain-base:latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -33,57 +36,18 @@ jobs:
 
       - name: Install System Dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
+          apt-get update
+          apt-get install -y --no-install-recommends \
             build-essential \
             pkg-config \
             git \
             python3 \
             libpng-dev \
-            zlib1g-dev \
-            wget \
-            curl \
-            gdebi-core
-
-      - name: Pre-configure Pacman with Hardened Curl XferCommand
-        run: |
-          sudo mkdir -p /opt/devkitpro/pacman/etc/
-          sudo tee /opt/devkitpro/pacman/etc/pacman.conf > /dev/null << 'EOF'
-          [options]
-          HoldPkg     = pacman glibc
-          Architecture = auto
-          SigLevel    = Required DatabaseOptional
-          LocalFileSigLevel = Optional
-          XferCommand = /usr/bin/curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" -L -C - -o %o %u
-
-          [dkp-libs]
-          Server = https://pkg.devkitpro.org/packages
-
-          [dkp-linux]
-          Server = https://pkg.devkitpro.org/packages
-          EOF
-
-      - name: Install devkitPro Pacman via Official Script
-        run: |
-          wget -U "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" https://apt.devkitpro.org/install-devkitpro-pacman
-          chmod +x ./install-devkitpro-pacman
-          sudo ./install-devkitpro-pacman || sudo dpkg --configure -a
-
-      - name: Install GBA Toolchain via dkp-pacman
-        run: |
-          # Retry loop to handle transient Cloudflare challenges
-          for i in {1..3}; do
-            sudo dkp-pacman -Syu --noconfirm gba-dev devkitarm-rules && break
-            echo "Attempt $i failed, retrying in 5 seconds..."
-            sleep 5
-          done
+            zlib1g-dev
 
       - name: Build Project Tools and Compile ROM
         shell: bash
         run: |
-          if [ -f /etc/profile.d/devkit-env.sh ]; then
-            source /etc/profile.d/devkit-env.sh
-          fi
           export DEVKITPRO=/opt/devkitpro
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=${DEVKITARM}/bin:${PATH}
@@ -102,7 +66,7 @@ jobs:
           # Clear any stale generated object/archive files to prevent duplicate .o errors
           make clean || true
 
-          # Compile the final ROM safely
+          # Compile the final ROM safely in parallel
           make -j$(nproc)
 
       - name: Upload Compiled ROM
