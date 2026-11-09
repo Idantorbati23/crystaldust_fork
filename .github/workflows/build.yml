@@ -20,12 +20,33 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install GBA Development Toolchain
+      - name: Install System Dependencies & Libpng
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            build-essential \
+            pkg-config \
+            git \
+            python3 \
+            libpng-dev \
+            zlib1g-dev
+
+      - name: Install GBA Development Toolchain via dkp-pacman
         run: |
           dkp-pacman -Syu --noconfirm gba-dev devkitarm-rules
 
-      - name: Compile ROM
+      - name: Compile Repository Tools & ROM
+        shell: bash
         run: |
+          # Ensure devkitARM paths and binaries are loaded into the shell environment
+          export DEVKITPRO=/opt/devkitpro
+          export DEVKITARM=${DEVKITPRO}/devkitARM
+          export PATH=${DEVKITARM}/bin:${PATH}
+
+          # Build project tools first if a tools make target exists, or let root make handle it
+          make tools -j$(nproc) || true
+
+          # Compile the ROM
           make -j$(nproc)
 
       - name: Upload Compiled ROM
