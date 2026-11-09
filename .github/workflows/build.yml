@@ -79,14 +79,19 @@ jobs:
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=/usr/bin:${DEVKITARM}/bin:${PATH}
           
-          # Explicitly export agbcc environment paths required by pret-style Makefiles
+          # Explicitly export agbcc environment variables and include paths
           export AGBCC="$PWD/tools/agbcc/agbcc"
           export CC1="$PWD/tools/agbcc/agbcc"
+          
+          # Find the exact path of arm-none-eabi gcc include directory for stddef.h
+          GCC_INCLUDE_DIR=$(arm-none-eabi-gcc -print-file-name=include)
+          export CFLAGS="-I$GCC_INCLUDE_DIR -I$PWD/tools/agbcc/include"
+          export CPPFLAGS="-I$GCC_INCLUDE_DIR -I$PWD/tools/agbcc/include"
 
-          # Verify agbcc binary exists
           ls -l "$AGBCC"
+          echo "Using GCC include directory: $GCC_INCLUDE_DIR"
 
-          # Run single-threaded/safe build pass to prevent archiving races, then parallelize if needed
+          # Compile ROM
           make
 
       - name: Upload Compiled ROM
