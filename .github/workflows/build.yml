@@ -38,15 +38,15 @@ jobs:
       - name: Compile Repository Tools & ROM
         shell: bash
         run: |
-          # Ensure devkitARM paths and binaries are loaded into the shell environment
+          # Set up devkitARM environment variables
           export DEVKITPRO=/opt/devkitpro
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=${DEVKITARM}/bin:${PATH}
 
-          # Build project tools first if a tools make target exists, or let root make handle it
-          make tools -j$(nproc) || true
+          # Clean any potential stale build artifacts
+          make clean || true
 
-          # Compile the ROM
+          # Build tools and the ROM
           make -j$(nproc)
 
       - name: Upload Compiled ROM
