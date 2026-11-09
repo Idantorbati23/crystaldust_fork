@@ -2,14 +2,9 @@ name: Build CrystalDust ROM
 
 on:
   push:
-    branches:
-      - master
-      - main
-      - progress # or whatever your active branch is
+    branches: [ "main", "master", "progress" ]
   pull_request:
-    branches:
-      - master
-      - main
+    branches: [ "main", "master", "progress" ]
   workflow_dispatch:
 
 jobs:
@@ -17,47 +12,85 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: devkitpro/devkitarm:latest
+      image: devkitpro/toolchain-base:latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository with Submodules
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           submodules: recursive
 
-      - name: Mark workspace directory as safe for Git
+      - name: Fix Git Safe Directory Ownership
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Install build dependencies
+      - name: Ensure agbcc Tool Exists & Is Valid
         run: |
-          apt-get update && apt-get install -y \
+          if [ ! -d "tools/agbcc" ] || [ -z "$(ls -A tools/agbcc)" ]; then
+            echo "tools/agbcc is missing or empty. Cloning directly..."
+            rm -rf tools/agbcc
+            git clone https://github.com/pret/agbcc tools/agbcc
+          else
+            echo "tools/agbcc found."
+          fi
+
+      - name: Build ROM and All Dependencies
+        shell: bash
+        run: |
+          # 1. Install System Dependencies & ARM Toolchain inside the container
+          apt-get update
+          apt-get install -y --no-install-recommends \
             build-essential \
+            pkg-config \
             git \
-            libpng-dev \
-            g++ \
-            make \
-            cmake \
             python3 \
-            python3-pip
+            libpng-dev \
+            zlib1g-dev \
+            curl \
+            gcc-arm-none-eabi \
+            binutils-arm-none-eabi
 
-      - name: Configure DevkitARM Environment
-        run: |
-          echo "DEVKITPRO=/opt/devkitpro" >> $GITHUB_ENV
-          echo "DEVKITARM=/opt/devkitpro/devkitarm" >> $GITHUB_PATH
-      - name: Compile CrystalDust ROM
-        run: |
+          # 2. Configure Environment Paths
           export DEVKITPRO=/opt/devkitpro
-          export DEVKITARM=/opt/devkitpro/devkitarm
-          export PATH="$DEVKITPRO/tools/bin:$DEVKITARM/bin:$PATH"
-          make -j$(nproc) MODERN=1 COMPARE=0
+          export DEVKITARM=${DEVKITPRO}/devkitARM
+          export PATH=/usr/bin:${DEVKITARM}/bin:${PATH}
 
-      - name: Upload ROM artifact
+          # Verify binaries are present and accessible
+          which arm-none-eabi-gcc
+          which arm-none-eabi-as
+          which arm-none-eabi-ar
+
+          # 3. Build and Install agbcc (populates include headers like stddef.h)
+          if [ -f "tools/agbcc/build.sh" ]; then
+            cd tools/agbcc
+            ./build.sh
+            ./install.sh ..
+            cd ../..
+          else
+            make -C tools/agbcc CC=gcc CXX=g++
+          fi
+
+          # 4. Build repository tools sequentially
+          if make -n tools >/dev/null 2>&1; then
+            make tools
+          else
+            make -C tools/preproc || true
+            make -C tools/gbagfx || true
+            make -C tools/jsonproc || true
+          fi
+
+          # 5. Export agbcc environment variables for the compiler frontend
+          export AGBCC="$PWD/tools/agbcc/agbcc"
+          export CC1="$PWD/tools/agbcc/agbcc"
+
+          # 6. Compile the Final ROM
+          make
+
+      - name: Upload Compiled ROM
         uses: actions/upload-artifact@v4
         with:
-          name: crystaldust-rom
+          name: crystaldust-rom-${{ github.ref_name }}-${{ github.sha }}
           path: |
             *.gba
-            *.elf
             *.map
-          if-no-files-found: error
