@@ -2,9 +2,14 @@ name: Build CrystalDust ROM
 
 on:
   push:
-    branches: [ "main", "master", "progress" ]
+    branches:
+      - master
+      - main
+      - progress # or whatever your active branch is
   pull_request:
-    branches: [ "main", "master", "progress" ]
+    branches:
+      - master
+      - main
   workflow_dispatch:
 
 jobs:
@@ -12,87 +17,48 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: devkitpro/toolchain-base:latest
+      image: devkitpro/devkitarm:latest
 
     steps:
-      - name: Checkout Repository with Submodules
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           submodules: recursive
 
-      - name: Fix Git Safe Directory Ownership
+      - name: Mark workspace directory as safe for Git
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Ensure agbcc Tool Exists & Is Valid
+      - name: Install build dependencies
         run: |
-          if [ ! -d "tools/agbcc" ] || [ -z "$(ls -A tools/agbcc)" ]; then
-            echo "tools/agbcc is missing or empty. Cloning directly..."
-            rm -rf tools/agbcc
-            git clone https://github.com/pret/agbcc tools/agbcc
-          else
-            echo "tools/agbcc found."
-          fi
-
-      - name: Install System Dependencies & ARM Toolchain
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends \
+          apt-get update && apt-get install -y \
             build-essential \
-            pkg-config \
             git \
-            python3 \
             libpng-dev \
-            zlib1g-dev \
-            curl \
-            gcc-arm-none-eabi \
-            binutils-arm-none-eabi
+            g++ \
+            make \
+            cmake \
+            python3 \
+            python3-pip
 
-      - name: Build and Install agbcc and Repository Tools
-        shell: bash
+      - name: Configure DevkitARM Environment
+        run: |
+          echo "DEVKITPRO=/opt/devkitpro" >> $GITHUB_ENV
+          echo "DEVKITARM=/opt/devkitpro/devkitarm" >> $GITHUB_PATH
+
+      - name: Compile CrystalDust ROM
         run: |
           export DEVKITPRO=/opt/devkitpro
-          export DEVKITARM=${DEVKITPRO}/devkitARM
-          export PATH=/usr/bin:${DEVKITARM}/bin:${PATH}
+          export DEVKITARM=/opt/devkitpro/devkitarm
+          export PATH="$DEVKITARM/bin:$PATH"
+          make -j$(nproc) MODERN=1 COMPARE=0
 
-          # 1. Build and install agbcc (populates tools/agbcc/include with stddef.h)
-          if [ -f "tools/agbcc/build.sh" ]; then
-            cd tools/agbcc
-            ./build.sh
-            ./install.sh ..
-            cd ../..
-          else
-            make -C tools/agbcc CC=gcc CXX=g++
-          fi
-
-          # 2. Build repository tools sequentially
-          if make -n tools >/dev/null 2>&1; then
-            make tools
-          else
-            make -C tools/preproc || true
-            make -C tools/gbagfx || true
-            make -C tools/jsonproc || true
-          fi
-
-      - name: Compile Final ROM Safely
-        shell: bash
-        run: |
-          export DEVKITPRO=/opt/devkitpro
-          export DEVKITARM=${DEVKITPRO}/devkitARM
-          export PATH=/usr/bin:${DEVKITARM}/bin:${PATH}
-          
-          # Explicitly export agbcc environment variables
-          export AGBCC="$PWD/tools/agbcc/agbcc"
-          export CC1="$PWD/tools/agbcc/agbcc"
-
-          # Run the build
-          make
-
-      - name: Upload Compiled ROM
+      - name: Upload ROM artifact
         uses: actions/upload-artifact@v4
         with:
-          name: crystaldust-rom-${{ github.ref_name }}-${{ github.sha }}
+          name: crystaldust-rom
           path: |
             *.gba
+            *.elf
             *.map
+          if-no-files-found: error
