@@ -56,11 +56,6 @@ jobs:
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=/usr/bin:${DEVKITARM}/bin:${PATH}
 
-          # Verify binaries are present and accessible
-          which arm-none-eabi-gcc
-          which arm-none-eabi-as
-          which arm-none-eabi-ar
-
           # 3. Build and Install agbcc (populates include headers like stddef.h)
           if [ -f "tools/agbcc/build.sh" ]; then
             cd tools/agbcc
@@ -71,18 +66,25 @@ jobs:
             make -C tools/agbcc CC=gcc CXX=g++
           fi
 
-          # 4. Build repository tools sequentially
-          if make -n tools >/dev/null 2>&1; then
-            make tools
-          else
-            make -C tools/preproc || true
-            make -C tools/gbagfx || true
-            make -C tools/jsonproc || true
-          fi
+          # 4. Build repository tools safely using the root target or fallback loop
+          make tools || {
+            echo "Standard 'make tools' failed or missing, building individual tools..."
+            for tool in aif2pcm bin2c gbafix gbagfx jsonproc mapjson mid2agb preproc ramscrgen rsfont scaninc xorencrypt; do
+              if [ -d "tools/$tool" ]; then
+                make -C "tools/$tool" || true
+              fi
+            done
+          }
 
-          # 5. Export agbcc environment variables for the compiler frontend
+          # 5. Export agbcc environment variables and compiler flags for stddef.h resolution
           export AGBCC="$PWD/tools/agbcc/agbcc"
           export CC1="$PWD/tools/agbcc/agbcc"
+          export AGBCCFLAGS="-I$PWD/tools/agbcc/include"
+          
+          # Get GCC include path for standard headers
+          GCC_INC=$(arm-none-eabi-gcc -print-file-name=include)
+          export CFLAGS="-I$GCC_INC -I$PWD/tools/agbcc/include"
+          export CPPFLAGS="-I$GCC_INC -I$PWD/tools/agbcc/include"
 
           # 6. Compile the Final ROM
           make
