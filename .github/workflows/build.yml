@@ -43,7 +43,15 @@ jobs:
             git \
             python3 \
             libpng-dev \
-            zlib1g-dev
+            zlib1g-dev \
+            wget
+
+      - name: Bypass Cloudflare 403 by Configuring Wget User-Agent for Pacman
+        run: |
+          # Add XferCommand using wget with a custom user-agent string to pacman.conf
+          if ! grep -q "XferCommand" /etc/pacman.conf; then
+            sed -i '/\[options\]/a XferCommand = /usr/bin/wget -U "dkp-pacman" --passive-ftp -c -O %o %u' /etc/pacman.conf
+          fi
 
       - name: Install GBA Toolchain via dkp-pacman
         run: |
@@ -56,7 +64,7 @@ jobs:
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=${DEVKITARM}/bin:${PATH}
 
-          # 1. Build agbcc and preproc first so the binaries exist
+          # Build agbcc and preproc tools explicitly
           if [ -f "tools/agbcc/build.sh" ]; then
             cd tools/agbcc && ./build.sh && cd ../..
           else
@@ -67,7 +75,7 @@ jobs:
             make -C tools/preproc || true
           fi
 
-          # 2. Compile the final ROM using parallel jobs
+          # Compile the final ROM
           make -j$(nproc)
 
       - name: Upload Compiled ROM
