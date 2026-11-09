@@ -30,13 +30,6 @@ jobs:
             python3 \
             libpng-dev
 
-      - name: Build Build Tools (agbcc & preproc)
-        run: |
-          make -C tools/agbcc
-          make -C tools/preproc
-          if [ -d "tools/gbagfx" ]; then make -C tools/gbagfx; fi
-          if [ -d "tools/scaninc" ]; then make -C tools/scaninc; fi
-
       - name: Compile ROM
         run: |
           make -j$(nproc)
