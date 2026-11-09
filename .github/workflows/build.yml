@@ -15,28 +15,19 @@ jobs:
       image: devkitpro/toolchain-base:latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repository with Submodules
         uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
 
-      - name: Mark Workspace as Safe Directory
+      - name: Fix Git Safe Directory Ownership
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Ensure Submodules are Synced
+      - name: Explicitly Fetch Submodules
         run: |
-          git submodule sync --recursive
-          git submodule update --init --recursive
-
-      - name: Verify agbcc Folder Exists
-        run: |
-          if [ ! -d "tools/agbcc" ]; then
-            echo "Error: tools/agbcc directory is missing!"
-            exit 1
-          fi
-          ls -la tools/agbcc
+          git submodule foreach --recursive git submodule update --init --force
 
       - name: Install System Dependencies
         run: |
@@ -60,9 +51,14 @@ jobs:
           export DEVKITARM=${DEVKITPRO}/devkitARM
           export PATH=${DEVKITARM}/bin:${PATH}
 
+          # Clean any old states
           make clean || true
+
+          # Build agbcc and preproc tools
           make -C tools/agbcc
           make -C tools/preproc
+
+          # Compile the final ROM
           make -j$(nproc)
 
       - name: Upload Compiled ROM
